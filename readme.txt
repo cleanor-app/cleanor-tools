@@ -8,22 +8,22 @@ Stable tag: 0.2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Image optimizer: automatically compress and convert your Media Library images to WebP or AVIF. Smaller files, faster pages, better Core Web Vitals, no bloat.
+The no-signup image optimizer: auto-convert your Media Library to WebP or AVIF with no account, no API key and no per-image credits. Faster Core Web Vitals.
 
 == Description ==
 
-**Cleanor Tools** shrinks the images in your WordPress Media Library and converts them to modern formats (WebP / AVIF) using the [Cleanor Labs](https://cleanor.app/) image API. Lighter images mean faster page loads, higher PageSpeed / Core Web Vitals scores, and less storage used.
+Most WordPress image optimizers make you create an account, paste an API key, or buy per-image credits. **Cleanor Tools** doesn't. It shrinks the images in your Media Library and converts them to modern formats (WebP / AVIF) using the free [Cleanor Labs](https://cleanor.app/) endpoint — no signup, no key, no credits. Lighter images mean faster page loads, higher PageSpeed / Core Web Vitals scores, and less storage used.
 
 Point-and-forget: turn it on and every new upload is optimized automatically, thumbnails included. Already have thousands of images? Run the one-click bulk optimizer.
 
-= Why Cleanor Tools =
+= What makes it different =
 
-* **Real savings.** WebP is typically 25–35% smaller than JPEG and AVIF even more, at the same visual quality.
-* **Zero fiddling.** New uploads are optimized on the fly. No cron, no queues to babysit.
+* **No account, no API key, no credits.** The default endpoint is free and key-free — you're optimizing within a minute of activating, with nothing to sign up for.
+* **AVIF, not just WebP.** Convert to AVIF (the smallest mainstream format) as easily as WebP, straight from the Media Library.
+* **Backed by open data.** Our savings figures come from published, reproducible benchmarks (open dataset with a citable DOI), not marketing claims.
 * **Full-library bulk mode.** Optimize every existing image with a progress bar you can leave running.
 * **Keeps your originals (optional).** Store a `.bak` of every source file so you can revert.
 * **Transparent.** A "Cleanor" column in the Media Library shows exactly how much each image shrank, plus a running total on the settings screen.
-* **No account required.** The default endpoint is free and needs no signup or API key.
 * **Lightweight.** No giant framework, no tracking, no ads in your dashboard.
 
 = What it does =
