@@ -1,10 +1,10 @@
 === Cleanor Tools ===
-Contributors: cleanorlabs
+Contributors: cleanor
 Tags: image optimization, webp, avif, compress images, performance
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 0.1.0
+Stable tag: 0.2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -82,6 +82,10 @@ Settings and stats are per-site.
 3. The "Cleanor" savings column in the Media Library.
 
 == Changelog ==
+
+= 0.2.0 =
+* Admin scripts are now properly enqueued (wp_enqueue_script / wp_localize_script) instead of inline.
+* Removed load_plugin_textdomain() (not needed on WordPress 6.0+).
 
 = 0.1.0 =
 * Initial release: automatic optimization on upload, bulk optimizer, per-image action, WebP/AVIF/recompress, Media Library savings column, running savings total, optional original backups.

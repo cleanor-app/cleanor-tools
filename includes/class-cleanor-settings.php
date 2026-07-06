@@ -14,6 +14,9 @@ class Cleanor_Settings {
 	const OPTION       = 'cleanor_tools_options';
 	const STATS_OPTION = 'cleanor_tools_stats';
 
+	/** @var string Settings page hook suffix, set in menu(). */
+	private $hook_suffix = '';
+
 	/** @return array Default option values. */
 	public static function defaults() {
 		return array(
@@ -89,7 +92,35 @@ class Cleanor_Settings {
 	public function hooks() {
 		add_action( 'admin_menu', array( $this, 'menu' ) );
 		add_action( 'admin_init', array( $this, 'register' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
 		add_filter( 'plugin_action_links_' . plugin_basename( CLEANOR_TOOLS_FILE ), array( $this, 'action_links' ) );
+	}
+
+	/**
+	 * Enqueue the settings-screen script (test-connection button).
+	 *
+	 * @param string $hook Current admin page hook suffix.
+	 */
+	public function enqueue( $hook ) {
+		if ( $hook !== $this->hook_suffix ) {
+			return;
+		}
+		wp_enqueue_script(
+			'cleanor-settings',
+			CLEANOR_TOOLS_URL . 'assets/settings.js',
+			array(),
+			CLEANOR_TOOLS_VERSION,
+			true
+		);
+		wp_localize_script(
+			'cleanor-settings',
+			'CleanorSettings',
+			array(
+				'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+				'nonce'   => wp_create_nonce( 'cleanor_test' ),
+				'testing' => __( 'Testing…', 'cleanor-tools' ),
+			)
+		);
 	}
 
 	public function action_links( $links ) {
@@ -99,7 +130,7 @@ class Cleanor_Settings {
 	}
 
 	public function menu() {
-		add_options_page(
+		$this->hook_suffix = add_options_page(
 			__( 'Cleanor Tools', 'cleanor-tools' ),
 			__( 'Cleanor Tools', 'cleanor-tools' ),
 			'manage_options',
@@ -222,24 +253,6 @@ class Cleanor_Settings {
 			</p>
 			<p class="description"><?php esc_html_e( 'Bulk-optimize existing images under Media → Bulk Optimize (Cleanor).', 'cleanor-tools' ); ?></p>
 		</div>
-		<script>
-		( function () {
-			var btn = document.getElementById( 'cleanor-test-conn' );
-			if ( ! btn ) { return; }
-			btn.addEventListener( 'click', function ( e ) {
-				e.preventDefault();
-				var out = document.getElementById( 'cleanor-test-result' );
-				out.textContent = <?php echo wp_json_encode( __( 'Testing…', 'cleanor-tools' ) ); ?>;
-				var data = new FormData();
-				data.append( 'action', 'cleanor_test_connection' );
-				data.append( '_ajax_nonce', <?php echo wp_json_encode( wp_create_nonce( 'cleanor_test' ) ); ?> );
-				fetch( ajaxurl, { method: 'POST', body: data, credentials: 'same-origin' } )
-					.then( function ( r ) { return r.json(); } )
-					.then( function ( j ) { out.textContent = j.data && j.data.message ? j.data.message : JSON.stringify( j ); } )
-					.catch( function ( err ) { out.textContent = String( err ); } );
-			} );
-		}() );
-		</script>
 		<?php
 	}
 }

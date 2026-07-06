@@ -15,6 +15,8 @@ class Cleanor_Bulk {
 	private $settings;
 	/** @var Cleanor_Optimizer */
 	private $optimizer;
+	/** @var string Bulk page hook suffix, set in menu(). */
+	private $hook_suffix = '';
 
 	public function __construct( Cleanor_Settings $settings, Cleanor_Optimizer $optimizer ) {
 		$this->settings  = $settings;
@@ -23,17 +25,48 @@ class Cleanor_Bulk {
 
 	public function hooks() {
 		add_action( 'admin_menu', array( $this, 'menu' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
 		add_action( 'wp_ajax_cleanor_bulk_list', array( $this, 'ajax_list' ) );
 		add_action( 'wp_ajax_cleanor_bulk_one', array( $this, 'ajax_one' ) );
 	}
 
 	public function menu() {
-		add_media_page(
+		$this->hook_suffix = add_media_page(
 			__( 'Bulk Optimize (Cleanor)', 'cleanor-tools' ),
 			__( 'Bulk Optimize', 'cleanor-tools' ),
 			'upload_files',
 			'cleanor-bulk',
 			array( $this, 'render' )
+		);
+	}
+
+	/**
+	 * Enqueue the bulk-optimizer script.
+	 *
+	 * @param string $hook Current admin page hook suffix.
+	 */
+	public function enqueue( $hook ) {
+		if ( $hook !== $this->hook_suffix ) {
+			return;
+		}
+		wp_enqueue_script(
+			'cleanor-bulk',
+			CLEANOR_TOOLS_URL . 'assets/bulk.js',
+			array(),
+			CLEANOR_TOOLS_VERSION,
+			true
+		);
+		wp_localize_script(
+			'cleanor-bulk',
+			'CleanorBulk',
+			array(
+				'ajaxUrl'    => admin_url( 'admin-ajax.php' ),
+				'nonce'      => wp_create_nonce( 'cleanor_bulk' ),
+				'collecting' => __( 'Collecting images…', 'cleanor-tools' ),
+				'nothing'    => __( 'Nothing left to optimize. 🎉', 'cleanor-tools' ),
+				'processed'  => __( 'images processed.', 'cleanor-tools' ),
+				'optimized'  => __( 'optimized', 'cleanor-tools' ),
+			)
 		);
 	}
 
@@ -83,7 +116,6 @@ class Cleanor_Bulk {
 		if ( ! current_user_can( 'upload_files' ) ) {
 			return;
 		}
-		$nonce = wp_create_nonce( 'cleanor_bulk' );
 		?>
 		<div class="wrap">
 			<h1><?php esc_html_e( 'Bulk Optimize (Cleanor)', 'cleanor-tools' ); ?></h1>
@@ -96,57 +128,6 @@ class Cleanor_Bulk {
 				<p id="cleanor-bulk-status"></p>
 			</div>
 		</div>
-		<script>
-		( function () {
-			var start  = document.getElementById( 'cleanor-bulk-start' );
-			var bar    = document.getElementById( 'cleanor-bulk-bar' );
-			var status = document.getElementById( 'cleanor-bulk-status' );
-			var nonce  = <?php echo wp_json_encode( $nonce ); ?>;
-
-			function post( body ) {
-				body.append( '_ajax_nonce', nonce );
-				return fetch( ajaxurl, { method: 'POST', body: body, credentials: 'same-origin' } ).then( function ( r ) { return r.json(); } );
-			}
-
-			start.addEventListener( 'click', function ( e ) {
-				e.preventDefault();
-				start.disabled = true;
-				status.textContent = <?php echo wp_json_encode( __( 'Collecting images…', 'cleanor-tools' ) ); ?>;
-				var list = new FormData();
-				list.append( 'action', 'cleanor_bulk_list' );
-				post( list ).then( function ( j ) {
-					var ids = ( j && j.data && j.data.ids ) || [];
-					if ( ! ids.length ) {
-						status.textContent = <?php echo wp_json_encode( __( 'Nothing left to optimize. 🎉', 'cleanor-tools' ) ); ?>;
-						start.disabled = false;
-						return;
-					}
-					bar.style.display = 'block';
-					bar.max = ids.length;
-					var done = 0, saved = 0;
-					function next() {
-						if ( ! ids.length ) {
-							status.textContent = done + <?php echo wp_json_encode( ' ' . __( 'images processed.', 'cleanor-tools' ) ); ?>;
-							start.disabled = false;
-							return;
-						}
-						var id = ids.shift();
-						var one = new FormData();
-						one.append( 'action', 'cleanor_bulk_one' );
-						one.append( 'id', id );
-						post( one ).then( function ( res ) {
-							done++;
-							bar.value = done;
-							if ( res && res.data && typeof res.data.saved_pct !== 'undefined' ) { saved++; }
-							status.textContent = done + ' / ' + bar.max + ', ' + saved + <?php echo wp_json_encode( ' ' . __( 'optimized', 'cleanor-tools' ) ); ?>;
-							next();
-						} ).catch( function () { done++; bar.value = done; next(); } );
-					}
-					next();
-				} );
-			} );
-		}() );
-		</script>
 		<?php
 	}
 }
