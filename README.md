@@ -6,9 +6,20 @@ Automatically **compress and convert your WordPress Media Library images to WebP
 [![WordPress](https://img.shields.io/badge/WordPress-6.0%2B-21759b.svg)](https://wordpress.org/)
 [![PHP](https://img.shields.io/badge/PHP-7.4%2B-777bb4.svg)](https://www.php.net/)
 
-Powered by the free [Cleanor Labs](https://cleanor.app/) image API. See the [live tools](https://cleanor.app/tools) and [compression research](https://cleanor.app/research).
+Powered by the free [Cleanor Labs](https://cleanor.app/) image API.
+
+> 🌐 **No WordPress? Use the same optimizer in your browser at [cleanor.app/tools](https://cleanor.app/tools)** — and see the open [compression benchmarks](https://cleanor.app/research) behind it.
 
 ![Bulk Optimize screen](.wordpress-org/screenshot-2.png)
+
+## Contents
+
+- [Features](#features)
+- [Install](#install)
+- [Developer reference](#developer-reference)
+  - [Structure](#structure) · [How it works](#how-it-works) · [Extending](#extending) · [Packaging](#packaging-for-release) · [API contract](#api-contract)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Features
 
@@ -107,6 +118,10 @@ POST /v1/optimize      → multipart file (or JSON image_url, or raw body)
                          (or ?json=1 for base64).
 ```
 
+## Contributing
+
+Issues and PRs welcome. This mirrors the plugin published on WordPress.org; please follow [WordPress coding standards](https://developer.wordpress.org/coding-standards/) — all output escaped, all input sanitized, admin actions nonce-checked and capability-gated. Test against a clean WordPress install before opening a PR.
+
 ## License
 
-[GPL-2.0-or-later](LICENSE). © Cleanor Labs.
+[GPL-2.0-or-later](LICENSE). © Cleanor Labs. More at [cleanor.app/tools](https://cleanor.app/tools) and [cleanor.app/research](https://cleanor.app/research).
