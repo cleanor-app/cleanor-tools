@@ -104,6 +104,7 @@ class Cleanor_Optimizer {
 		$dir              = trailingslashit( dirname( $full_path ) );
 		$total_original   = 0;
 		$total_optimized  = 0;
+		$kept_backup      = false;
 
 		// --- Full-size image ---
 		$full = $this->convert_file( $full_path, $source_mime, $target, (int) $this->settings->get( 'quality' ) );
@@ -114,6 +115,9 @@ class Cleanor_Optimizer {
 		$total_optimized += $full['optimized'];
 
 		if ( $full['new_path'] !== $full_path ) {
+			if ( $this->settings->get( 'keep_original' ) ) {
+				$kept_backup = true;
+			}
 			// Extension changed: repoint the attachment and update its MIME.
 			$uploads   = wp_get_upload_dir();
 			$new_rel   = ltrim( str_replace( $uploads['basedir'], '', $full['new_path'] ), '/\\' );
@@ -166,6 +170,11 @@ class Cleanor_Optimizer {
 		update_post_meta( $attachment_id, '_cleanor_optimized_bytes', $total_optimized );
 		update_post_meta( $attachment_id, '_cleanor_saved_pct', $saved_pct );
 		update_post_meta( $attachment_id, '_cleanor_format', $target );
+		if ( $kept_backup ) {
+			update_post_meta( $attachment_id, '_cleanor_has_backup', 1 );
+		} else {
+			delete_post_meta( $attachment_id, '_cleanor_has_backup' );
+		}
 
 		$this->settings->add_savings( $total_original, $total_optimized );
 

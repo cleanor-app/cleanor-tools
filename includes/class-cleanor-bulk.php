@@ -1,6 +1,7 @@
 <?php
 /**
- * Bulk-optimize existing Media Library images (AJAX, one at a time).
+ * Bulk-optimize existing Media Library images (AJAX, one at a time), plus the
+ * branded Bulk screen that also hosts "Restore originals".
  *
  * @package Cleanor_Tools
  */
@@ -15,8 +16,6 @@ class Cleanor_Bulk {
 	private $settings;
 	/** @var Cleanor_Optimizer */
 	private $optimizer;
-	/** @var string Bulk page hook suffix, set in menu(). */
-	private $hook_suffix = '';
 
 	public function __construct( Cleanor_Settings $settings, Cleanor_Optimizer $optimizer ) {
 		$this->settings  = $settings;
@@ -24,50 +23,8 @@ class Cleanor_Bulk {
 	}
 
 	public function hooks() {
-		add_action( 'admin_menu', array( $this, 'menu' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
 		add_action( 'wp_ajax_cleanor_bulk_list', array( $this, 'ajax_list' ) );
 		add_action( 'wp_ajax_cleanor_bulk_one', array( $this, 'ajax_one' ) );
-	}
-
-	public function menu() {
-		$this->hook_suffix = add_media_page(
-			__( 'Bulk Optimize (Cleanor)', 'cleanor-tools' ),
-			__( 'Bulk Optimize', 'cleanor-tools' ),
-			'upload_files',
-			'cleanor-bulk',
-			array( $this, 'render' )
-		);
-	}
-
-	/**
-	 * Enqueue the bulk-optimizer script.
-	 *
-	 * @param string $hook Current admin page hook suffix.
-	 */
-	public function enqueue( $hook ) {
-		if ( $hook !== $this->hook_suffix ) {
-			return;
-		}
-		wp_enqueue_script(
-			'cleanor-bulk',
-			CLEANOR_TOOLS_URL . 'assets/bulk.js',
-			array(),
-			CLEANOR_TOOLS_VERSION,
-			true
-		);
-		wp_localize_script(
-			'cleanor-bulk',
-			'CleanorBulk',
-			array(
-				'ajaxUrl'    => admin_url( 'admin-ajax.php' ),
-				'nonce'      => wp_create_nonce( 'cleanor_bulk' ),
-				'collecting' => __( 'Collecting images…', 'cleanor-tools' ),
-				'nothing'    => __( 'Nothing left to optimize. 🎉', 'cleanor-tools' ),
-				'processed'  => __( 'images processed.', 'cleanor-tools' ),
-				'optimized'  => __( 'optimized', 'cleanor-tools' ),
-			)
-		);
 	}
 
 	/** IDs of image attachments not yet optimized. */
@@ -87,6 +44,47 @@ class Cleanor_Bulk {
 				),
 			)
 		);
+	}
+
+	/** @return int Total number of images still pending optimization. */
+	public function count_pending() {
+		$q = new WP_Query(
+			array(
+				'post_type'      => 'attachment',
+				'post_status'    => 'inherit',
+				'post_mime_type' => array( 'image/jpeg', 'image/png', 'image/webp', 'image/avif' ),
+				'posts_per_page' => 1,
+				'fields'         => 'ids',
+				'no_found_rows'  => false,
+				'meta_query'     => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+					array(
+						'key'     => '_cleanor_optimized',
+						'compare' => 'NOT EXISTS',
+					),
+				),
+			)
+		);
+		return (int) $q->found_posts;
+	}
+
+	/** @return int Attachments that have a restorable backup. */
+	private function count_backups() {
+		$q = new WP_Query(
+			array(
+				'post_type'      => 'attachment',
+				'post_status'    => 'inherit',
+				'posts_per_page' => 1,
+				'fields'         => 'ids',
+				'no_found_rows'  => false,
+				'meta_query'     => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+					array(
+						'key'     => '_cleanor_has_backup',
+						'compare' => 'EXISTS',
+					),
+				),
+			)
+		);
+		return (int) $q->found_posts;
 	}
 
 	public function ajax_list() {
@@ -116,18 +114,53 @@ class Cleanor_Bulk {
 		if ( ! current_user_can( 'upload_files' ) ) {
 			return;
 		}
+		$pending = $this->count_pending();
+		$backups = $this->count_backups();
+
+		Cleanor_Admin::header( 'bulk', __( 'Bulk Optimize', 'cleanor-tools' ) );
 		?>
-		<div class="wrap">
-			<h1><?php esc_html_e( 'Bulk Optimize (Cleanor)', 'cleanor-tools' ); ?></h1>
-			<p><?php esc_html_e( 'Optimize every image that has not been processed yet. You can leave this page open while it runs.', 'cleanor-tools' ); ?></p>
-			<p>
-				<button class="button button-primary" id="cleanor-bulk-start"><?php esc_html_e( 'Start', 'cleanor-tools' ); ?></button>
+		<div class="cleanor-card">
+			<h2><?php esc_html_e( 'Optimize existing images', 'cleanor-tools' ); ?></h2>
+			<p class="cleanor-sub">
+				<?php
+				echo esc_html(
+					sprintf(
+						/* translators: %s: number of pending images */
+						_n( '%s image is waiting to be optimized. Leave this page open while it runs.', '%s images are waiting to be optimized. Leave this page open while it runs.', $pending, 'cleanor-tools' ),
+						number_format_i18n( $pending )
+					)
+				);
+				?>
 			</p>
-			<div id="cleanor-bulk-progress" style="max-width:520px;">
-				<progress id="cleanor-bulk-bar" value="0" max="100" style="width:100%;height:22px;display:none;"></progress>
-				<p id="cleanor-bulk-status"></p>
+			<p><button class="button button-primary cleanor-btn-blue" id="cleanor-bulk-start"<?php disabled( 0 === $pending ); ?>><?php esc_html_e( 'Start optimizing', 'cleanor-tools' ); ?></button></p>
+			<div class="cleanor-progress" id="cleanor-bulk-progress">
+				<progress id="cleanor-bulk-bar" value="0" max="100" style="display:none;"></progress>
+				<p class="cleanor-status" id="cleanor-bulk-status"></p>
 			</div>
 		</div>
+
+		<?php if ( $backups > 0 ) : ?>
+		<div class="cleanor-card">
+			<h2><?php esc_html_e( 'Restore originals', 'cleanor-tools' ); ?></h2>
+			<p class="cleanor-sub">
+				<?php
+				echo esc_html(
+					sprintf(
+						/* translators: %s: number of backed-up images */
+						_n( '%s image has a backed-up original you can restore.', '%s images have backed-up originals you can restore.', $backups, 'cleanor-tools' ),
+						number_format_i18n( $backups )
+					)
+				);
+				?>
+			</p>
+			<p><button class="button cleanor-btn-blue" id="cleanor-restore-start"><?php esc_html_e( 'Restore all originals', 'cleanor-tools' ); ?></button></p>
+			<div class="cleanor-progress" id="cleanor-restore-progress">
+				<progress id="cleanor-restore-bar" value="0" max="100" style="display:none;"></progress>
+				<p class="cleanor-status" id="cleanor-restore-status"></p>
+			</div>
+		</div>
+		<?php endif; ?>
 		<?php
+		Cleanor_Admin::footer();
 	}
 }

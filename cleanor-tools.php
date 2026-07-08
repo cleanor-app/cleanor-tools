@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Cleanor Tools
  * Description:        Automatically compress and convert Media Library images to WebP or AVIF via Cleanor Labs. Faster pages, better Core Web Vitals, less storage. Bulk-optimize existing images in one click.
- * Version:           0.2.0
+ * Version:           0.3.0
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Cleanor Labs
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // No direct access.
 }
 
-define( 'CLEANOR_TOOLS_VERSION', '0.2.0' );
+define( 'CLEANOR_TOOLS_VERSION', '0.3.0' );
 define( 'CLEANOR_TOOLS_FILE', __FILE__ );
 define( 'CLEANOR_TOOLS_DIR', plugin_dir_path( __FILE__ ) );
 define( 'CLEANOR_TOOLS_URL', plugin_dir_url( __FILE__ ) );
@@ -31,6 +31,8 @@ require_once CLEANOR_TOOLS_DIR . 'includes/class-cleanor-settings.php';
 require_once CLEANOR_TOOLS_DIR . 'includes/class-cleanor-api.php';
 require_once CLEANOR_TOOLS_DIR . 'includes/class-cleanor-optimizer.php';
 require_once CLEANOR_TOOLS_DIR . 'includes/class-cleanor-bulk.php';
+require_once CLEANOR_TOOLS_DIR . 'includes/class-cleanor-restore.php';
+require_once CLEANOR_TOOLS_DIR . 'includes/class-cleanor-admin.php';
 
 /**
  * Boot the plugin once all plugins are loaded.
@@ -47,6 +49,13 @@ function cleanor_tools_init() {
 
 	$bulk = new Cleanor_Bulk( $settings, $optimizer );
 	$bulk->hooks();
+
+	$restore = new Cleanor_Restore( $settings );
+	$restore->hooks();
+
+	// Branded cabinet: owns the top-level menu + shared assets for all screens.
+	$admin = new Cleanor_Admin( $settings, $bulk, $restore );
+	$admin->hooks();
 }
 add_action( 'plugins_loaded', 'cleanor_tools_init' );
 

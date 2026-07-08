@@ -4,11 +4,11 @@ Tags: image optimization, webp, avif, compress images, performance
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 0.2.0
+Stable tag: 0.3.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-The no-signup image optimizer: auto-convert your Media Library to WebP or AVIF with no account, no API key and no per-image credits. Faster Core Web Vitals.
+Free WebP & AVIF image optimizer for your Media Library. No account, no API key, no per-image credits. Faster Core Web Vitals.
 
 == Description ==
 
@@ -49,8 +49,8 @@ This plugin is a service integration: it relies on the external Cleanor API to p
 
 1. In your dashboard go to **Plugins → Add New → Upload Plugin**, choose `cleanor-tools.zip`, and click **Install Now**. (Or copy the `cleanor-tools` folder into `wp-content/plugins/`.)
 2. Click **Activate**.
-3. Go to **Settings → Cleanor Tools**, click **Test connection**, pick your format and quality, and **Save Changes**.
-4. New uploads are now optimized automatically. To process your existing library, open **Media → Bulk Optimize** and click **Start**.
+3. Open the new **Cleanor** menu, go to **Settings**, click **Test connection**, pick a compression preset and format, and **Save changes**.
+4. New uploads are now optimized automatically. To process your existing library, open **Cleanor → Bulk Optimize** and click **Start optimizing**.
 
 == Frequently Asked Questions ==
 
@@ -77,11 +77,21 @@ Settings and stats are per-site.
 
 == Screenshots ==
 
-1. Settings screen with format, quality and behavior options, plus your running total saved.
-2. Bulk Optimize screen processing the existing Media Library with a live progress bar.
-3. The "Cleanor" savings column in the Media Library.
+1. Optimize every image automatically: each new upload is shrunk on the fly.
+2. Choose WebP or AVIF straight from the Media Library, with a quality slider.
+3. Bulk-optimize your entire library in one click, with a live progress bar.
+4. See exactly how much each image saved in the Cleanor column.
+5. No account, no API key, no credits: connected and optimizing within a minute.
+6. Backed by open, reproducible benchmarks with a citable dataset.
 
 == Changelog ==
+
+= 0.3.0 =
+* New branded "Cleanor" admin cabinet with its own top-level menu.
+* Dashboard: total saved, average reduction, images optimized, pending and backed-up counts at a glance.
+* Compression presets (Balanced, Aggressive, Near-lossless, Custom).
+* Restore originals: one-click bulk restore, plus a per-image "Restore original" action (requires the .bak backup option).
+* Redesigned, card-based Settings and Bulk Optimize screens.
 
 = 0.2.0 =
 * Admin scripts are now properly enqueued (wp_enqueue_script / wp_localize_script) instead of inline.
