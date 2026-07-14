@@ -46,6 +46,14 @@
 					var one = new FormData();
 					one.append( 'action', cfg.oneAction );
 					one.append( 'id', id );
+					if ( cfg.getExtra ) {
+						var extra = cfg.getExtra();
+						for ( var k in extra ) {
+							if ( Object.prototype.hasOwnProperty.call( extra, k ) ) {
+								one.append( k, extra[ k ] );
+							}
+						}
+					}
 					post( one, cfg.nonce ).then( function ( res ) {
 						done++;
 						bar.value = done;
@@ -72,6 +80,23 @@
 		doneWord: CleanorBulk.processed,
 		emptyText: CleanorBulk.nothing,
 		collectText: CleanorBulk.collecting
+	} );
+
+	runner( {
+		startId: 'cleanor-convert-start',
+		barId: 'cleanor-convert-bar',
+		statusId: 'cleanor-convert-status',
+		nonce: CleanorBulk.nonce,
+		listAction: 'cleanor_convert_list',
+		oneAction: 'cleanor_bulk_one',
+		countKey: CleanorBulk.converted,
+		doneWord: CleanorBulk.processed,
+		emptyText: CleanorBulk.nothing,
+		collectText: CleanorBulk.collecting,
+		getExtra: function () {
+			var sel = document.getElementById( 'cleanor-convert-format' );
+			return { format: sel ? sel.value : 'webp', force: 1 };
+		}
 	} );
 
 	runner( {

@@ -37,7 +37,7 @@
 	box-shadow: var(--cl-shadow);
 }
 .cleanor-logo svg { width: 26px; height: 26px; }
-.cleanor-head h1 { margin: 0; font-size: 20px; line-height: 1.2; color: var(--cl-ink); }
+.cleanor-head h1 { margin: 0; font-size: 20px; font-weight: 500; line-height: 1.2; color: var(--cl-ink); }
 .cleanor-head .cleanor-ver {
 	font-size: 11px;
 	font-weight: 600;
@@ -92,9 +92,53 @@
 	flex-wrap: wrap;
 }
 .cleanor-hero .cleanor-hero-main { flex: 1 1 260px; }
-.cleanor-hero .cleanor-big { font-size: 42px; font-weight: 800; line-height: 1; letter-spacing: -0.02em; }
-.cleanor-hero .cleanor-big small { font-size: 20px; font-weight: 700; opacity: 0.85; margin-left: 4px; }
+.cleanor-hero .cleanor-big { font-size: 42px; font-weight: 500; line-height: 1; letter-spacing: -0.02em; }
+.cleanor-hero .cleanor-big small { font-size: 20px; font-weight: 400; opacity: 0.85; margin-left: 4px; }
+.cleanor-hero .cleanor-welcome { font-size: 22px; font-weight: 500; line-height: 1.2; }
 .cleanor-hero .cleanor-hero-sub { margin-top: 8px; font-size: 14px; opacity: 0.92; }
+.cleanor-hero--slim { padding: 20px 24px; }
+.cleanor-dim { opacity: 0.55; }
+
+/* Coverage bar (inside the hero) */
+.cleanor-cov { margin-top: 16px; max-width: 460px; }
+.cleanor-cov-head { display: flex; justify-content: space-between; font-size: 13px; opacity: 0.95; margin-bottom: 6px; }
+.cleanor-cov-bar { height: 8px; border-radius: 999px; background: rgba(255, 255, 255, 0.25); overflow: hidden; }
+.cleanor-cov-bar > span { display: block; height: 100%; background: #fff; border-radius: 999px; transition: width 0.4s ease; }
+
+/* Delivery flow diagram */
+.cleanor-flow { display: flex; align-items: stretch; gap: 12px; flex-wrap: wrap; margin: 4px 0 16px; }
+.cleanor-flow-step { flex: 1 1 200px; border: 1px solid var(--cl-border); border-radius: 10px; padding: 12px 14px; background: #fbfcfe; }
+.cleanor-flow-step.is-served { border-color: var(--cl-blue); background: var(--cl-blue-050); }
+.cleanor-flow-cap { font-size: 11px; text-transform: uppercase; letter-spacing: 0.03em; color: var(--cl-muted); font-weight: 600; }
+.cleanor-flow-file { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; color: var(--cl-ink); margin-top: 5px; word-break: break-all; }
+.cleanor-flow-arrow { display: flex; align-items: center; color: var(--cl-blue); font-size: 20px; font-weight: 700; }
+@media (max-width: 782px) { .cleanor-flow-arrow { align-self: center; transform: rotate(90deg); } }
+
+/* Info badge + badge strip */
+.cleanor-strip { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.cleanor-badge.is-info { color: var(--cl-blue); background: var(--cl-blue-050); }
+.cleanor-tiles--2 { grid-template-columns: repeat(2, 1fr); }
+.cleanor-tiles--3 { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 782px) { .cleanor-tiles--3 { grid-template-columns: repeat(2, 1fr); } }
+.cleanor-callout { background: #fbfcfe; }
+
+/* Onboarding steps */
+.cleanor-steps { display: flex; flex-direction: column; }
+.cleanor-step { display: flex; gap: 16px; padding: 18px 0; border-top: 1px solid var(--cl-border); }
+.cleanor-step:first-child { border-top: 0; padding-top: 2px; }
+.cleanor-step-n { flex: 0 0 auto; width: 34px; height: 34px; border-radius: 50%; background: var(--cl-blue-050); color: var(--cl-blue); font-weight: 800; font-size: 15px; display: flex; align-items: center; justify-content: center; }
+.cleanor-step.is-done .cleanor-step-n { background: #e7f7ef; color: var(--cl-green); }
+.cleanor-step-body { flex: 1 1 auto; }
+.cleanor-step-body h3 { margin: 3px 0 4px; font-size: 14px; color: var(--cl-ink); }
+.cleanor-step-body p { margin: 0 0 10px; color: var(--cl-muted); font-size: 13px; line-height: 1.5; }
+.cleanor-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.cleanor-check { color: var(--cl-green); font-weight: 700; font-size: 13px; }
+.cleanor-h2 { margin: 24px 0 12px; font-size: 16px; color: var(--cl-ink); }
+
+/* Danger zone (irreversible actions) */
+.cleanor-danger { border-color: #f0c4c4; }
+.cleanor-danger h2 { color: #b32d2e; }
+.cleanor-warn-note { color: #8a1f1f; background: #fdeded; border: 1px solid #f3c9c9; border-radius: 8px; padding: 10px 12px; font-size: 13px; line-height: 1.5; margin: 0 0 14px; }
 .cleanor-hero .button { margin-top: 16px; }
 
 /* Percent ring */
@@ -178,8 +222,9 @@
 .cleanor-preset:hover { border-color: var(--cl-blue-100); }
 .cleanor-preset input { position: absolute; opacity: 0; }
 .cleanor-preset.is-on { border-color: var(--cl-blue); background: var(--cl-blue-050); }
-.cleanor-preset .cleanor-preset-t { font-weight: 700; font-size: 13px; }
-.cleanor-preset .cleanor-preset-d { font-size: 12px; color: var(--cl-muted); margin-top: 2px; }
+.cleanor-preset { display: flex; flex-direction: column; }
+.cleanor-preset .cleanor-preset-t { display: block; font-weight: 700; font-size: 13px; }
+.cleanor-preset .cleanor-preset-d { display: block; font-size: 12px; color: var(--cl-muted); margin-top: 3px; line-height: 1.4; }
 
 /* --- Progress ----------------------------------------------------------- */
 .cleanor-progress { max-width: 560px; }
@@ -210,6 +255,18 @@
 }
 .cleanor-wrap .cleanor-btn-blue:hover { background: var(--cl-blue-dark); border-color: var(--cl-blue-dark); color: #fff; }
 
+.cleanor-note { color: var(--cl-muted); font-size: 13px; line-height: 1.5; margin: 0 0 12px; max-width: 720px; }
+
+/* --- Optimized images table -------------------------------------------- */
+.cleanor-tablewrap { overflow-x: auto; }
+.cleanor-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.cleanor-table th { text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.03em; color: var(--cl-muted); font-weight: 600; padding: 8px 12px; border-bottom: 1px solid var(--cl-border); white-space: nowrap; }
+.cleanor-table td { padding: 10px 12px; border-bottom: 1px solid var(--cl-border); vertical-align: middle; color: var(--cl-ink); }
+.cleanor-table tr:last-child td { border-bottom: 0; }
+.cleanor-table .cl-img { display: flex; align-items: center; gap: 10px; min-width: 200px; }
+.cleanor-table .cl-thumb img { width: 44px; height: 44px; object-fit: cover; border-radius: 8px; display: block; }
+.cleanor-table .cl-pct { color: var(--cl-green); font-weight: 700; }
+.cleanor-pager { display: flex; align-items: center; gap: 12px; margin-top: 14px; }
 .cleanor-links { display: flex; gap: 18px; flex-wrap: wrap; font-size: 13px; }
 .cleanor-links a { text-decoration: none; }
 .cleanor-muted { color: var(--cl-muted); }

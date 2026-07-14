@@ -60,14 +60,15 @@ class Cleanor_API {
 	/**
 	 * Optimize raw image bytes.
 	 *
-	 * @param string      $bytes       Source image bytes.
-	 * @param string      $source_mime Source MIME (used only for the request content-type).
-	 * @param string      $format      Target format: webp|avif|jpeg.
-	 * @param int         $quality     1-100.
-	 * @param int|null    $width       Optional resize width.
+	 * @param string   $bytes       Source image bytes.
+	 * @param string   $source_mime Source MIME (used only for the request content-type).
+	 * @param string   $format      Target format: webp|avif|jpeg.
+	 * @param int      $quality     1-100.
+	 * @param int|null $width       Optional resize width (downscale if wider).
+	 * @param bool     $strip       Strip EXIF / GPS / camera metadata.
 	 * @return array|WP_Error  { bytes, original, optimized, saved_pct, mime }
 	 */
-	public function optimize_bytes( $bytes, $source_mime, $format, $quality, $width = null ) {
+	public function optimize_bytes( $bytes, $source_mime, $format, $quality, $width = null, $strip = false ) {
 		$args = array(
 			'format'  => $format,
 			'quality' => (int) $quality,
@@ -75,6 +76,9 @@ class Cleanor_API {
 		);
 		if ( $width ) {
 			$args['width'] = (int) $width;
+		}
+		if ( $strip ) {
+			$args['strip'] = '1';
 		}
 		$url = add_query_arg( $args, $this->settings->endpoint() . '/v1/optimize' );
 

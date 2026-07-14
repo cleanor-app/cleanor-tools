@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name:       Cleanor Tools
+ * Plugin Name:       Cleanor: Image Compressor & Converter
  * Description:        Automatically compress and convert Media Library images to WebP or AVIF via Cleanor Labs. Faster pages, better Core Web Vitals, less storage. Bulk-optimize existing images in one click.
- * Version:           0.3.0
+ * Version:           0.6.0
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Cleanor Labs
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // No direct access.
 }
 
-define( 'CLEANOR_TOOLS_VERSION', '0.3.0' );
+define( 'CLEANOR_TOOLS_VERSION', '0.6.0' );
 define( 'CLEANOR_TOOLS_FILE', __FILE__ );
 define( 'CLEANOR_TOOLS_DIR', plugin_dir_path( __FILE__ ) );
 define( 'CLEANOR_TOOLS_URL', plugin_dir_url( __FILE__ ) );
@@ -29,9 +29,12 @@ define( 'CLEANOR_TOOLS_DEFAULT_ENDPOINT', 'https://mcp.cleanor.app' );
 
 require_once CLEANOR_TOOLS_DIR . 'includes/class-cleanor-settings.php';
 require_once CLEANOR_TOOLS_DIR . 'includes/class-cleanor-api.php';
+require_once CLEANOR_TOOLS_DIR . 'includes/class-cleanor-local.php';
 require_once CLEANOR_TOOLS_DIR . 'includes/class-cleanor-optimizer.php';
 require_once CLEANOR_TOOLS_DIR . 'includes/class-cleanor-bulk.php';
 require_once CLEANOR_TOOLS_DIR . 'includes/class-cleanor-restore.php';
+require_once CLEANOR_TOOLS_DIR . 'includes/class-cleanor-serve.php';
+require_once CLEANOR_TOOLS_DIR . 'includes/class-cleanor-cleanup.php';
 require_once CLEANOR_TOOLS_DIR . 'includes/class-cleanor-admin.php';
 
 /**
@@ -44,7 +47,8 @@ function cleanor_tools_init() {
 	$api = new Cleanor_API( $settings );
 	$api->hooks();
 
-	$optimizer = new Cleanor_Optimizer( $settings, $api );
+	$local     = new Cleanor_Local();
+	$optimizer = new Cleanor_Optimizer( $settings, $api, $local );
 	$optimizer->hooks();
 
 	$bulk = new Cleanor_Bulk( $settings, $optimizer );
@@ -53,8 +57,16 @@ function cleanor_tools_init() {
 	$restore = new Cleanor_Restore( $settings );
 	$restore->hooks();
 
+	// Front-end <picture> delivery for non-destructive ("keep") mode.
+	$serve = new Cleanor_Serve( $settings );
+	$serve->hooks();
+
+	// CleanUp: tidy sibling files on delete + reclaim-space tools.
+	$cleanup = new Cleanor_Cleanup( $settings );
+	$cleanup->hooks();
+
 	// Branded cabinet: owns the top-level menu + shared assets for all screens.
-	$admin = new Cleanor_Admin( $settings, $bulk, $restore );
+	$admin = new Cleanor_Admin( $settings, $bulk, $restore, $cleanup );
 	$admin->hooks();
 }
 add_action( 'plugins_loaded', 'cleanor_tools_init' );

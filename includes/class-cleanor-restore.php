@@ -28,6 +28,9 @@ class Cleanor_Restore {
 		add_action( 'wp_ajax_cleanor_restore_one', array( $this, 'ajax_one' ) );
 		add_filter( 'media_row_actions', array( $this, 'row_action' ), 11, 2 );
 		add_action( 'admin_action_cleanor_restore', array( $this, 'handle_row_action' ) );
+		add_filter( 'bulk_actions-upload', array( $this, 'register_bulk_action' ) );
+		add_filter( 'handle_bulk_actions-upload', array( $this, 'handle_bulk_action' ), 10, 3 );
+		add_action( 'admin_notices', array( $this, 'bulk_notice' ) );
 	}
 
 	/** @return int Number of attachments that have a restorable backup. */
@@ -39,12 +42,7 @@ class Cleanor_Restore {
 				'posts_per_page' => 1,
 				'fields'         => 'ids',
 				'no_found_rows'  => false,
-				'meta_query'     => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
-					array(
-						'key'     => '_cleanor_has_backup',
-						'compare' => 'EXISTS',
-					),
-				),
+				'meta_query'     => self::restorable_meta_query(), // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 			)
 		);
 		return (int) $q->found_posts;
@@ -58,13 +56,28 @@ class Cleanor_Restore {
 				'post_status'    => 'inherit',
 				'posts_per_page' => 1000,
 				'fields'         => 'ids',
-				'meta_query'     => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
-					array(
-						'key'     => '_cleanor_has_backup',
-						'compare' => 'EXISTS',
-					),
-				),
+				'meta_query'     => self::restorable_meta_query(), // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 			)
+		);
+	}
+
+	/**
+	 * Meta query matching any restorable attachment: a kept .bak (replace mode)
+	 * or a non-destructive keep-mode optimization.
+	 *
+	 * @return array
+	 */
+	private static function restorable_meta_query() {
+		return array(
+			'relation' => 'OR',
+			array(
+				'key'     => '_cleanor_has_backup',
+				'compare' => 'EXISTS',
+			),
+			array(
+				'key'   => '_cleanor_delivery',
+				'value' => 'keep',
+			),
 		);
 	}
 
@@ -84,9 +97,19 @@ class Cleanor_Restore {
 		$id     = isset( $_POST['id'] ) ? (int) $_POST['id'] : 0;
 		$result = $this->restore_attachment( $id );
 		if ( is_wp_error( $result ) ) {
-			wp_send_json_success( array( 'id' => $id, 'skipped' => $result->get_error_message() ) );
+			wp_send_json_success(
+				array(
+					'id'      => $id,
+					'skipped' => $result->get_error_message(),
+				)
+			);
 		}
-		wp_send_json_success( array( 'id' => $id, 'restored' => true ) );
+		wp_send_json_success(
+			array(
+				'id'       => $id,
+				'restored' => true,
+			)
+		);
 	}
 
 	/**
@@ -96,6 +119,10 @@ class Cleanor_Restore {
 	 * @return true|WP_Error
 	 */
 	public function restore_attachment( $id ) {
+		// Non-destructive mode: just drop the derivatives; the original is intact.
+		if ( 'keep' === get_post_meta( $id, '_cleanor_delivery', true ) ) {
+			return $this->restore_keep( $id );
+		}
 		if ( ! get_post_meta( $id, '_cleanor_has_backup', true ) ) {
 			return new WP_Error( 'cleanor_no_backup', __( 'No backup to restore.', 'cleanor-tools' ) );
 		}
@@ -167,6 +194,42 @@ class Cleanor_Restore {
 	}
 
 	/**
+	 * Revert a non-destructive ("keep") optimization: delete the WebP/AVIF
+	 * derivatives and clear our meta. The original file was never touched.
+	 *
+	 * @param int $id Attachment ID.
+	 * @return true|WP_Error
+	 */
+	private function restore_keep( $id ) {
+		$current = get_attached_file( $id );
+		if ( $current ) {
+			$dir    = trailingslashit( dirname( $current ) );
+			$derivs = get_post_meta( $id, '_cleanor_derivatives', true );
+			if ( is_array( $derivs ) ) {
+				foreach ( $derivs as $basename ) {
+					$path = $dir . $basename;
+					if ( '' !== (string) $basename && file_exists( $path ) ) {
+						wp_delete_file( $path );
+					}
+				}
+			}
+		}
+
+		$ob = (int) get_post_meta( $id, '_cleanor_original_bytes', true );
+		$op = (int) get_post_meta( $id, '_cleanor_optimized_bytes', true );
+		$this->settings->subtract_savings( $ob, $op );
+
+		foreach ( array( '_cleanor_optimized', '_cleanor_original_bytes', '_cleanor_optimized_bytes', '_cleanor_saved_pct', '_cleanor_format', '_cleanor_delivery', '_cleanor_derivative_format', '_cleanor_derivatives', '_cleanor_has_backup' ) as $key ) {
+			delete_post_meta( $id, $key );
+		}
+
+		/** Fires after an attachment is restored to its original. */
+		do_action( 'cleanor_after_restore', $id );
+
+		return true;
+	}
+
+	/**
 	 * Move a single "<name>.<ext>.bak" back to "<name>.<ext>", removing the
 	 * superseding optimized file. Returns the restored basename or null.
 	 *
@@ -217,10 +280,12 @@ class Cleanor_Restore {
 	// --- Media list-table row action -----------------------------------------
 
 	public function row_action( $actions, $post ) {
-		if ( ! get_post_meta( $post->ID, '_cleanor_has_backup', true ) ) {
+		$restorable = get_post_meta( $post->ID, '_cleanor_has_backup', true )
+			|| 'keep' === get_post_meta( $post->ID, '_cleanor_delivery', true );
+		if ( ! $restorable ) {
 			return $actions;
 		}
-		$url = wp_nonce_url(
+		$url                        = wp_nonce_url(
 			admin_url( 'admin.php?action=cleanor_restore&attachment=' . $post->ID ),
 			'cleanor_restore_' . $post->ID
 		);
@@ -237,6 +302,70 @@ class Cleanor_Restore {
 		$this->restore_attachment( $id );
 		wp_safe_redirect( wp_get_referer() ? wp_get_referer() : admin_url( 'upload.php' ) );
 		exit;
+	}
+
+	// --- Media list-table Bulk Actions ---------------------------------------
+
+	/** Add "Restore original (Cleanor)" to the Bulk Actions dropdown. */
+	public function register_bulk_action( $actions ) {
+		$actions['cleanor_restore'] = __( 'Restore original (Cleanor)', 'cleanor-tools' );
+		return $actions;
+	}
+
+	/**
+	 * Bulk-restore the selected attachments from their backups.
+	 *
+	 * @param string $redirect  The URL WordPress will redirect to.
+	 * @param string $action    The chosen bulk action.
+	 * @param int[]  $post_ids  Selected attachment IDs.
+	 * @return string
+	 */
+	public function handle_bulk_action( $redirect, $action, $post_ids ) {
+		if ( 'cleanor_restore' !== $action ) {
+			return $redirect;
+		}
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return $redirect;
+		}
+
+		$done    = 0;
+		$skipped = 0;
+		foreach ( (array) $post_ids as $post_id ) {
+			$result = $this->restore_attachment( (int) $post_id );
+			if ( is_wp_error( $result ) ) {
+				++$skipped;
+				continue;
+			}
+			++$done;
+		}
+
+		return add_query_arg(
+			array(
+				'cleanor_restored'        => $done,
+				'cleanor_restore_skipped' => $skipped,
+			),
+			$redirect
+		);
+	}
+
+	/** Show the outcome of a bulk restore as an admin notice. */
+	public function bulk_notice() {
+		if ( ! isset( $_REQUEST['cleanor_restored'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			return;
+		}
+		$done    = isset( $_REQUEST['cleanor_restored'] ) ? (int) $_REQUEST['cleanor_restored'] : 0;               // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$skipped = isset( $_REQUEST['cleanor_restore_skipped'] ) ? (int) $_REQUEST['cleanor_restore_skipped'] : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
+		$parts   = array();
+		$parts[] = sprintf( /* translators: %d: number of images */ _n( '%d image restored', '%d images restored', $done, 'cleanor-tools' ), $done );
+		if ( $skipped ) {
+			$parts[] = sprintf( /* translators: %d: number skipped */ _n( '%d had no backup', '%d had no backup', $skipped, 'cleanor-tools' ), $skipped );
+		}
+		printf(
+			'<div class="notice notice-success is-dismissible"><p>%1$s %2$s</p></div>',
+			esc_html__( 'Cleanor:', 'cleanor-tools' ),
+			esc_html( implode( ', ', $parts ) . '.' )
+		);
 	}
 
 	/**

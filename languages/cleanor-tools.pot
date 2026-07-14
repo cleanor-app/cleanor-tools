@@ -1,0 +1,1087 @@
+# Copyright (C) Cleanor Labs
+# This file is distributed under the GPL-2.0-or-later license.
+msgid ""
+msgstr ""
+"Project-Id-Version: Cleanor Tools\n"
+"Report-Msgid-Bugs-To: https://cleanor.app/\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Domain: cleanor-tools\n"
+
+#: includes/class-cleanor-admin.php:287
+msgid "%1$s of %2$s images optimized"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:366
+msgid "%1$s, quality %2$d"
+msgstr ""
+
+#: includes/class-cleanor-optimizer.php:678
+msgid "%d failed"
+msgid_plural "%d failed"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-cleanor-restore.php:362
+msgid "%d had no backup"
+msgid_plural "%d had no backup"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-cleanor-optimizer.php:673
+msgid "%d image optimized"
+msgid_plural "%d images optimized"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-cleanor-restore.php:360
+msgid "%d image restored"
+msgid_plural "%d images restored"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-cleanor-optimizer.php:675
+msgid "%d skipped"
+msgid_plural "%d skipped"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-cleanor-admin.php:581
+msgid "%s image is not optimized yet. Run Bulk Optimize once to process your whole library."
+msgid_plural "%s images are not optimized yet. Run Bulk Optimize once to process your whole library."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-cleanor-bulk.php:229
+msgid "%s image is waiting to be optimized. Leave this page open while it runs."
+msgid_plural "%s images are waiting to be optimized. Leave this page open while it runs."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-cleanor-bulk.php:212
+msgid "%s image left to optimize"
+msgid_plural "%s images left to optimize"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-cleanor-bulk.php:282
+msgid "%s optimized image can be restored to its original."
+msgid_plural "%s optimized images can be restored to their originals."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-cleanor-admin.php:487 includes/class-cleanor-optimizer.php:505
+msgid "-%d%%"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:555
+msgid "1. Choose format, quality and delivery"
+msgstr ""
+
+#: includes/class-cleanor-settings.php:239
+msgid "1–100. Editable only with the Custom preset."
+msgstr ""
+
+#: includes/class-cleanor-admin.php:564
+msgid "2. Optimize the images you already have"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:591
+msgid "3. Measure the speed gain"
+msgstr ""
+
+#: includes/class-cleanor-settings.php:367
+msgid "API endpoint"
+msgstr ""
+
+#: includes/class-cleanor-settings.php:374
+msgid "API key"
+msgstr ""
+
+#: includes/class-cleanor-bulk.php:264 includes/class-cleanor-settings.php:248
+msgid "AVIF (smallest)"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:448
+msgid "Actions"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:336
+msgid "Add a PageSpeed API key in Settings to see your score inline."
+msgstr ""
+
+#: includes/class-cleanor-admin.php:51
+msgid "Add a PageSpeed Insights API key in Settings first."
+msgstr ""
+
+#: includes/class-cleanor-settings.php:334
+msgid "Adds a high-priority <link rel=\"preload\"> for the post thumbnail, pointing at its WebP/AVIF version when one exists, so the hero image starts downloading sooner and LCP improves. WordPress already handles lazy-loading, async decoding and width/height on its own."
+msgstr ""
+
+#: includes/class-cleanor-settings.php:220
+msgid "Aggressive"
+msgstr ""
+
+#: includes/class-cleanor-bulk.php:242
+msgid "All optimized"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:161
+msgid "All tidy"
+msgstr ""
+
+#: includes/class-cleanor-optimizer.php:257
+msgid "Already in the delivery format."
+msgstr ""
+
+#: includes/class-cleanor-optimizer.php:123
+msgid "Already optimized."
+msgstr ""
+
+#: includes/class-cleanor-settings.php:356
+msgid "Also convert generated thumbnail sizes"
+msgstr ""
+
+#: includes/class-cleanor-settings.php:288
+msgid "Always use the Cleanor endpoint below. Consistent quality and AVIF everywhere, at the cost of sending each image to the service."
+msgstr ""
+
+#: includes/class-cleanor-restore.php:135
+msgid "Attachment file missing."
+msgstr ""
+
+#: includes/class-cleanor-settings.php:277
+msgid "Auto (recommended)"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:368
+msgid "Auto-optimize off"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:368
+msgid "Auto-optimize on"
+msgstr ""
+
+#: includes/class-cleanor-settings.php:353
+msgid "Automation"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:320
+msgid "Average reduction"
+msgstr ""
+
+#: includes/class-cleanor-restore.php:146
+msgid "Backup file not found on disk."
+msgstr ""
+
+#: includes/class-cleanor-settings.php:219
+msgid "Balanced"
+msgstr ""
+
+#: includes/class-cleanor-settings.php:350
+msgid "Behavior"
+msgstr ""
+
+#: includes/class-cleanor-settings.php:219
+msgid "Best size-to-quality (q80). Recommended."
+msgstr ""
+
+#: includes/class-cleanor-admin.php:98 includes/class-cleanor-admin.php:210
+msgid "Bulk Optimize"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:379 includes/class-cleanor-admin.php:637
+msgid "Bulk optimize"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:624
+msgid "By default (keep mode) the saving is in what visitors download, not on disk. To actually free hosting space, switch Delivery to Replace files, run Bulk Optimize, and turn on Resize to cap oversized uploads. The CleanUp tab then removes clutter: kept .bak originals, orphaned WebP/AVIF copies, and the untouched full-size originals WordPress keeps for scaled uploads. It can also scan for images that appear to be used nowhere and delete them, which is permanent, so back up first. You can undo an optimization from the Images tab or Bulk Optimize using Restore while a backup or the original still exists."
+msgstr ""
+
+#: includes/class-cleanor-admin.php:333
+msgid "Check my score here"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:100 includes/class-cleanor-admin.php:212 includes/class-cleanor-admin.php:638
+msgid "CleanUp"
+msgstr ""
+
+#: includes/class-cleanor-cleanup.php:595 includes/class-cleanor-bulk.php:197 includes/class-cleanor-admin.php:89 includes/class-cleanor-admin.php:90
+#: includes/class-cleanor-admin.php:256 includes/class-cleanor-admin.php:407 includes/class-cleanor-admin.php:545 includes/class-cleanor-optimizer.php:492
+#: includes/class-cleanor-settings.php:207
+msgid "Cleanor"
+msgstr ""
+
+#: includes/class-cleanor-settings.php:287
+msgid "Cleanor API only"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:170
+msgid "Cleanor data cleared. Run Bulk Optimize to start again."
+msgstr ""
+
+#: includes/class-cleanor-admin.php:604
+msgid "Cleanor exists to make your pages faster. Images are usually the heaviest thing on a page, so shrinking them lifts your load time and your Google PageSpeed and Core Web Vitals scores. When you upload an image (or run Bulk Optimize), the full-size image and each thumbnail are re-encoded to a modern format (WebP or AVIF) at your chosen quality. Images that would not get smaller are left alone. Use the \"Test my site on PageSpeed Insights\" button on the Dashboard to measure the difference."
+msgstr ""
+
+#: includes/class-cleanor-admin.php:329
+msgid "Cleanor exists to speed up your site. Images are usually the heaviest thing on a page, so shrinking them to modern formats (WebP/AVIF) at the right dimensions makes pages load faster, improves your Google PageSpeed and Core Web Vitals scores, and lightens what visitors download. Cleanor also preloads your hero image so it appears sooner."
+msgstr ""
+
+#: includes/class-cleanor-optimizer.php:685 includes/class-cleanor-restore.php:366
+msgid "Cleanor:"
+msgstr ""
+
+#: includes/class-cleanor-optimizer.php:518
+msgid "Cleanor: all images"
+msgstr ""
+
+#: includes/class-cleanor-optimizer.php:520
+msgid "Cleanor: not optimized"
+msgstr ""
+
+#: includes/class-cleanor-optimizer.php:519
+msgid "Cleanor: optimized"
+msgstr ""
+
+#: includes/class-cleanor-optimizer.php:521
+msgid "Cleanor: restorable"
+msgstr ""
+
+#: includes/class-cleanor-cleanup.php:676
+msgid "Clears everything Cleanor has recorded (optimization status, savings totals and Restore markers) so the plugin treats your library as untouched. It does not delete or change any image file. Use it to start fresh, or before deactivating the plugin. After a reset you can run Bulk Optimize again from scratch."
+msgstr ""
+
+#: includes/class-cleanor-admin.php:185
+msgid "Collecting images…"
+msgstr ""
+
+#: includes/class-cleanor-settings.php:213
+msgid "Compression"
+msgstr ""
+
+#: includes/class-cleanor-api.php:142
+msgid "Connected. Cleanor v%1$s, %2$d tools, auth: %3$s."
+msgstr ""
+
+#: includes/class-cleanor-settings.php:364
+msgid "Connection"
+msgstr ""
+
+#: includes/class-cleanor-bulk.php:266
+msgid "Convert all images"
+msgstr ""
+
+#: includes/class-cleanor-bulk.php:247
+msgid "Convert to a modern format"
+msgstr ""
+
+#: includes/class-cleanor-settings.php:321
+msgid "Converts the actual file to WebP/AVIF and updates its URL everywhere. Smallest storage footprint, but the file extension and direct URLs change. The Resize and \"Keep a .bak copy\" options apply only to this mode."
+msgstr ""
+
+#: includes/class-cleanor-settings.php:329
+msgid "Core Web Vitals helpers that need no extra requests."
+msgstr ""
+
+#: includes/class-cleanor-admin.php:128
+msgid "Could not fetch the score. Check the API key in Settings."
+msgstr ""
+
+#: includes/class-cleanor-optimizer.php:361
+msgid "Could not read file."
+msgstr ""
+
+#: includes/class-cleanor-optimizer.php:384
+msgid "Could not write optimized file."
+msgstr ""
+
+#: includes/class-cleanor-settings.php:222
+msgid "Custom"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:97 includes/class-cleanor-admin.php:209
+msgid "Dashboard"
+msgstr ""
+
+#: includes/class-cleanor-settings.php:370
+msgid "Default: https://mcp.cleanor.app"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:154
+msgid "Delete all kept .bak originals? This cannot be undone and disables Restore for those images."
+msgstr ""
+
+#: includes/class-cleanor-cleanup.php:627
+msgid "Delete backups"
+msgstr ""
+
+#: includes/class-cleanor-cleanup.php:641
+msgid "Delete full-size originals"
+msgstr ""
+
+#: includes/class-cleanor-cleanup.php:639
+msgid "Delete full-size originals of scaled images"
+msgstr ""
+
+#: includes/class-cleanor-cleanup.php:625
+msgid "Delete original backups"
+msgstr ""
+
+#: includes/class-cleanor-cleanup.php:632 includes/class-cleanor-cleanup.php:634
+msgid "Delete orphaned copies"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:155
+msgid "Delete the full-size originals of scaled images? Your images keep working, but you will not be able to re-crop or restore them at full resolution."
+msgstr ""
+
+#: includes/class-cleanor-admin.php:156
+msgid "Deleting backups…"
+msgstr ""
+
+#: includes/class-cleanor-settings.php:308
+msgid "Delivery"
+msgstr ""
+
+#: includes/class-cleanor-settings.php:295
+msgid "Detected on this server: %1$s. WebP: %2$s. AVIF: %3$s."
+msgstr ""
+
+#: includes/class-cleanor-admin.php:572
+msgid "Done: all %s image is optimized. New uploads are handled automatically."
+msgid_plural "Done: all %s images are optimized. New uploads are handled automatically."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-cleanor-settings.php:258
+msgid "Downscale images wider than this before compressing (great for huge phone photos, a big Core Web Vitals win). 0 = keep original dimensions. Thumbnails are unaffected."
+msgstr ""
+
+#: includes/class-cleanor-admin.php:378
+msgid "Edit settings"
+msgstr ""
+
+#: includes/class-cleanor-settings.php:273
+msgid "Engine"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:361
+msgid "Engine: Cleanor API"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:360
+msgid "Engine: on this server"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:359
+msgid "Engine: server first"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:431
+msgid "Every image Cleanor has processed, with a link to the exact file that is delivered. In \"keep originals\" mode the smaller copy lives on disk right next to the original (same name plus .webp or .avif) and is served through a <picture> tag, so it does not appear as a separate item in the Media Library."
+msgstr ""
+
+#: includes/class-cleanor-bulk.php:241
+msgid "Every image in your library is optimized. New uploads are handled automatically."
+msgstr ""
+
+#: includes/class-cleanor-admin.php:620
+msgid "Existing posts do not need editing. In keep mode the same original URLs keep working and the modern copy is served automatically wherever those images appear. Run Bulk Optimize once to process everything already in your library, and use Convert to a modern format if you want to move the whole library to WebP or AVIF."
+msgstr ""
+
+#: includes/class-cleanor-api.php:135
+msgid "Failed: "
+msgstr ""
+
+#: includes/class-cleanor-admin.php:328
+msgid "Faster pages are the whole point"
+msgstr ""
+
+#: includes/class-cleanor-optimizer.php:128
+msgid "File not found."
+msgstr ""
+
+#: includes/class-cleanor-optimizer.php:484 includes/class-cleanor-restore.php:383
+msgid "Filesystem is not writable."
+msgstr ""
+
+#: includes/class-cleanor-optimizer.php:523
+msgid "Filter by Cleanor status"
+msgstr ""
+
+#: includes/class-cleanor-cleanup.php:640
+msgid "For large uploads WordPress serves a scaled-down version and keeps the untouched full-size original on disk. Removing those originals reclaims a lot of space. Your images keep working; you only lose the ability to re-crop or restore from the full resolution later."
+msgstr ""
+
+#: includes/class-cleanor-admin.php:446
+msgid "Format"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:220
+msgid "Free WebP & AVIF image optimizer by Cleanor Labs."
+msgstr ""
+
+#: includes/class-cleanor-cleanup.php:615
+msgid "Full-size originals"
+msgstr ""
+
+#: includes/class-cleanor-local.php:189
+msgid "GD could not encode the image in this format."
+msgstr ""
+
+#: includes/class-cleanor-local.php:163
+msgid "GD could not read the image."
+msgstr ""
+
+#: includes/class-cleanor-admin.php:549
+msgid "Get set up in 3 steps"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:312
+msgid "Get started"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:102 includes/class-cleanor-admin.php:214
+msgid "Help"
+msgstr ""
+
+#: includes/class-cleanor-settings.php:221
+msgid "Highest quality (q92)."
+msgstr ""
+
+#: includes/class-cleanor-admin.php:102 includes/class-cleanor-admin.php:381 includes/class-cleanor-admin.php:599
+msgid "How it works"
+msgstr ""
+
+#: includes/class-cleanor-settings.php:309
+msgid "How the optimized images reach your visitors."
+msgstr ""
+
+#: includes/class-cleanor-cleanup.php:620
+msgid "How to free up hosting space"
+msgstr ""
+
+#: includes/class-cleanor-settings.php:343
+msgid "How to get a key"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:344
+msgid "How your images are delivered"
+msgstr ""
+
+#: includes/class-cleanor-cleanup.php:654
+msgid "I have reviewed the results and want to move these images to the Trash."
+msgstr ""
+
+#: includes/class-cleanor-admin.php:442
+msgid "Image"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:99 includes/class-cleanor-admin.php:211
+msgid "Images"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:318
+msgid "Images optimized"
+msgstr ""
+
+#: includes/class-cleanor-local.php:154
+msgid "Imagick produced no output."
+msgstr ""
+
+#: includes/class-cleanor-admin.php:616
+msgid "In keep mode the smaller copy sits on disk right next to the original with the same name plus .webp or .avif (for example photo.jpg.webp). It is a sibling file, not a separate Media Library item, which is why you will not see it listed there. Cleanor swaps it in at render time through a <picture> tag, and also preloads your featured image in that format for a faster Largest Contentful Paint. Open the Images tab to see every processed image with a direct link to the exact file being served. In replace mode the Media Library file itself is the optimized one."
+msgstr ""
+
+#: includes/class-cleanor-admin.php:373
+msgid "In keep mode your files and their sizes stay exactly the same on disk and in the Media Library. The smaller copy is served automatically, so the saving is in what visitors download, not in disk space."
+msgstr ""
+
+#: includes/class-cleanor-admin.php:374
+msgid "In replace mode each image is converted in place to a smaller file, so the size on disk and in the Media Library goes down too."
+msgstr ""
+
+#: includes/class-cleanor-cleanup.php:662
+msgid "In the default \"Keep originals, serve modern\" mode your original files are kept on purpose: they are the fallback served to browsers that do not support WebP or AVIF, and the Media Library still points at them. Deleting them would break those images, so they are not offered here. To reclaim that space, switch Delivery to \"Replace files\" in Settings and re-run Bulk Optimize; the originals then become .bak backups you can remove above."
+msgstr ""
+
+#: includes/class-cleanor-settings.php:358
+msgid "Keep a .bak copy of the original (enables Restore)"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:365 includes/class-cleanor-admin.php:558
+msgid "Keep originals"
+msgstr ""
+
+#: includes/class-cleanor-settings.php:315
+msgid "Keep originals, serve modern (recommended)"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:612
+msgid "Keep originals, serve modern (the default) never changes your files or their URLs. Cleanor stores a smaller copy next to each image and serves it automatically to browsers that support it, falling back to your original everywhere else. Replace files instead converts the actual file to WebP or AVIF, so the file on disk and its URL change, but you reclaim the storage."
+msgstr ""
+
+#: includes/class-cleanor-settings.php:331
+msgid "Largest Contentful Paint"
+msgstr ""
+
+#: includes/class-cleanor-cleanup.php:665
+msgid "Maintenance"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:125
+msgid "Measuring… this can take up to a minute."
+msgstr ""
+
+#: includes/class-cleanor-admin.php:127
+msgid "Mobile performance: %s / 100"
+msgstr ""
+
+#: includes/class-cleanor-settings.php:311
+msgid "Mode"
+msgstr ""
+
+#: includes/class-cleanor-cleanup.php:656
+msgid "Move unused images to Trash"
+msgstr ""
+
+#: includes/class-cleanor-settings.php:221
+msgid "Near-lossless"
+msgstr ""
+
+#: includes/class-cleanor-settings.php:283
+msgid "Never contacts an external service. Fully private and unlimited, but AVIF needs server support and a slow shared host processes large batches more slowly."
+msgstr ""
+
+#: includes/class-cleanor-admin.php:550
+msgid "New to Cleanor? Follow these to make your images lighter and prove the speed gain."
+msgstr ""
+
+#: includes/class-cleanor-admin.php:520
+msgid "Next"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:193
+msgid "No backed-up originals to restore."
+msgstr ""
+
+#: includes/class-cleanor-restore.php:127
+msgid "No backup to restore."
+msgstr ""
+
+#: includes/class-cleanor-local.php:117
+msgid "No local image library (Imagick or GD) is available."
+msgstr ""
+
+#: includes/class-cleanor-optimizer.php:378
+msgid "No size reduction."
+msgstr ""
+
+#: includes/class-cleanor-settings.php:316
+msgid "Non-destructive. Your original files and URLs never change. Cleanor stores a WebP/AVIF copy next to each image and serves it automatically via a <picture> tag to browsers that support it. Nothing breaks, and you can revert any image instantly."
+msgstr ""
+
+#: includes/class-cleanor-admin.php:47 includes/class-cleanor-optimizer.php:600 includes/class-cleanor-api.php:131 includes/class-cleanor-restore.php:300
+msgid "Not allowed."
+msgstr ""
+
+#: includes/class-cleanor-admin.php:576
+msgid "Nothing left to do here"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:186
+msgid "Nothing left to optimize."
+msgstr ""
+
+#: includes/class-cleanor-admin.php:434
+msgid "Nothing optimized yet. Upload an image or run Bulk Optimize."
+msgstr ""
+
+#: includes/class-cleanor-admin.php:160
+msgid "Nothing to clean up."
+msgstr ""
+
+#: includes/class-cleanor-optimizer.php:144
+msgid "Nothing to do for this format."
+msgstr ""
+
+#: includes/class-cleanor-settings.php:282
+msgid "On this server only"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:607
+msgid "On your server, and private"
+msgstr ""
+
+#: includes/class-cleanor-settings.php:270
+msgid "Optimization engine"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:299
+msgid "Optimize %d pending image"
+msgid_plural "Optimize %d pending images"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-cleanor-optimizer.php:592
+msgid "Optimize (Cleanor)"
+msgstr ""
+
+#: includes/class-cleanor-bulk.php:222
+msgid "Optimize existing images"
+msgstr ""
+
+#: includes/class-cleanor-settings.php:355
+msgid "Optimize new uploads automatically"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:585
+msgid "Optimize now"
+msgstr ""
+
+#: includes/class-cleanor-settings.php:278
+msgid "Optimize on this server when it can; fall back to the free Cleanor API only when the server cannot produce the chosen format (for example AVIF on a host without support)."
+msgstr ""
+
+#: includes/class-cleanor-optimizer.php:611
+msgid "Optimize with Cleanor"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:444
+msgid "Optimized"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:99 includes/class-cleanor-admin.php:430
+msgid "Optimized images"
+msgstr ""
+
+#: includes/class-cleanor-settings.php:377
+msgid "Optional today. Paste a key here once you have one."
+msgstr ""
+
+#: includes/class-cleanor-settings.php:342
+msgid "Optional. Lets Cleanor show your Google PageSpeed score right on the Dashboard. Get a free key: Google Cloud Console, enable the \"PageSpeed Insights API\", then Credentials, Create credentials, API key. Paste it here. Without a key you can still open PageSpeed Insights from the Dashboard button."
+msgstr ""
+
+#: includes/class-cleanor-admin.php:443
+msgid "Original"
+msgstr ""
+
+#: includes/class-cleanor-cleanup.php:607
+msgid "Original backups (.bak)"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:352
+msgid "Original file"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:348
+msgid "Original, kept unchanged"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:192
+msgid "Originals restored."
+msgstr ""
+
+#: includes/class-cleanor-cleanup.php:611
+msgid "Orphaned copies"
+msgstr ""
+
+#: includes/class-cleanor-settings.php:244
+msgid "Output format"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:518
+msgid "Page %1$d of %2$d"
+msgstr ""
+
+#: includes/class-cleanor-settings.php:338
+msgid "PageSpeed API key"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:319
+msgid "Pending"
+msgstr ""
+
+#: includes/class-cleanor-settings.php:328
+msgid "Performance"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:311
+msgid "Pick a format and quality, then optimize your Media Library. No account or API key required."
+msgstr ""
+
+#: includes/class-cleanor-settings.php:214
+msgid "Pick a preset, or choose Custom to set the quality yourself."
+msgstr ""
+
+#: includes/class-cleanor-settings.php:333
+msgid "Preload the featured image on posts and pages"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:516
+msgid "Previous"
+msgstr ""
+
+#: includes/class-cleanor-settings.php:236
+msgid "Quality"
+msgstr ""
+
+#: includes/class-cleanor-bulk.php:253
+msgid "Re-encode all %s image in your library to the format you pick, in one pass. It follows your current delivery mode (keep originals, or replace files)."
+msgid_plural "Re-encode all %s images in your library to the format you pick, in one pass. It follows your current delivery mode (keep originals, or replace files)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-cleanor-cleanup.php:669
+msgid "Rebuild every image size from the original file. Useful after you change your theme or add image sizes, or if some thumbnails are missing. New sizes are optimized automatically."
+msgstr ""
+
+#: includes/class-cleanor-cleanup.php:600
+msgid "Reclaimable disk space. Nothing is deleted until you choose an action below."
+msgstr ""
+
+#: includes/class-cleanor-admin.php:623
+msgid "Reclaiming disk space and cleaning up"
+msgstr ""
+
+#: includes/class-cleanor-settings.php:249
+msgid "Recompress, keep format (JPEG)"
+msgstr ""
+
+#: includes/class-cleanor-cleanup.php:668 includes/class-cleanor-cleanup.php:670
+msgid "Regenerate thumbnails"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:162
+msgid "Regenerating thumbnails…"
+msgstr ""
+
+#: includes/class-cleanor-settings.php:357
+msgid "Remove EXIF, GPS & camera metadata (smaller files, more privacy)"
+msgstr ""
+
+#: includes/class-cleanor-cleanup.php:646
+msgid "Remove unused images from the Media Library"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:365 includes/class-cleanor-admin.php:558 includes/class-cleanor-settings.php:320
+msgid "Replace files"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:354
+msgid "Replaces it, URL changes"
+msgstr ""
+
+#: includes/class-cleanor-cleanup.php:675
+msgid "Reset Cleanor data"
+msgstr ""
+
+#: includes/class-cleanor-cleanup.php:677
+msgid "Reset all Cleanor data"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:168
+msgid "Reset all Cleanor data? This clears optimization status and savings totals for every image. No files are deleted, but Restore markers are removed. You can re-run Bulk Optimize afterwards."
+msgstr ""
+
+#: includes/class-cleanor-admin.php:169
+msgid "Resetting…"
+msgstr ""
+
+#: includes/class-cleanor-settings.php:255
+msgid "Resize"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:321
+msgid "Restorable images"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:501
+msgid "Restore"
+msgstr ""
+
+#: includes/class-cleanor-bulk.php:289
+msgid "Restore all originals"
+msgstr ""
+
+#: includes/class-cleanor-restore.php:292 includes/class-cleanor-restore.php:311
+msgid "Restore original (Cleanor)"
+msgstr ""
+
+#: includes/class-cleanor-bulk.php:276
+msgid "Restore originals"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:190
+msgid "Restoring originals…"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:557
+msgid "Review settings"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:592
+msgid "Run Google PageSpeed Insights on your site to see the effect on Core Web Vitals. The button below opens it with your address already filled in."
+msgstr ""
+
+#: includes/class-cleanor-settings.php:386
+msgid "Save changes"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:445
+msgid "Saved"
+msgstr ""
+
+#: includes/class-cleanor-cleanup.php:648
+msgid "Scan first to see how many images look unused and how much space they would free. An image counts as used if it is attached to a post, set as a featured image, or its file name or ID appears in any content, custom field or option."
+msgstr ""
+
+#: includes/class-cleanor-cleanup.php:650
+msgid "Scan for unused images"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:157
+msgid "Scanning for orphaned copies…"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:164
+msgid "Scanning the Media Library…"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:556
+msgid "Sensible defaults are already set (WebP, quality 80, keep originals). Adjust them any time in Settings."
+msgstr ""
+
+#: includes/class-cleanor-admin.php:447
+msgid "Served copy"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:350
+msgid "Served to visitors"
+msgstr ""
+
+#: includes/class-cleanor-settings.php:222
+msgid "Set your own quality."
+msgstr ""
+
+#: includes/class-cleanor-admin.php:101 includes/class-cleanor-admin.php:213 includes/class-cleanor-settings.php:137
+msgid "Settings"
+msgstr ""
+
+#: includes/class-cleanor-settings.php:220
+msgid "Smallest files (q62)."
+msgstr ""
+
+#: includes/class-cleanor-admin.php:171
+msgid "Something went wrong. Please try again."
+msgstr ""
+
+#: includes/class-cleanor-bulk.php:235
+msgid "Start optimizing"
+msgstr ""
+
+#: includes/class-cleanor-bulk.php:261
+msgid "Target format"
+msgstr ""
+
+#: includes/class-cleanor-settings.php:381
+msgid "Test connection"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:331 includes/class-cleanor-admin.php:593
+msgid "Test my site on PageSpeed Insights"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:141
+msgid "Testing…"
+msgstr ""
+
+#: includes/class-cleanor-cleanup.php:626
+msgid "The .bak copies kept when you optimize in Replace mode. Removing them reclaims disk space but permanently disables Restore for those images."
+msgstr ""
+
+#: includes/class-cleanor-cleanup.php:647
+msgid "This moves images that appear to be used nowhere to the Trash. It does not erase them: you can restore them from the Media Library Trash for about 30 days, and they keep displaying until the Trash is emptied. Detection is a best guess and can miss images used by page builders, sliders, widgets, theme options or custom fields, so review the results and, ideally, back up your site first. Emptying the Trash is what actually frees the disk space."
+msgstr ""
+
+#: includes/class-cleanor-bulk.php:259
+msgid "This re-processes every image, including ones already optimized, so it may take a while on a large library."
+msgstr ""
+
+#: includes/class-cleanor-cleanup.php:621
+msgid "To actually shrink what images use on disk: 1) set Delivery to \"Replace files\" in Settings so optimized files replace the originals, then run Bulk Optimize; 2) turn on Resize to cap oversized uploads; 3) below, delete the .bak backups, orphaned copies and the full-size originals of scaled images; 4) remove images you no longer use. In the default \"keep originals\" mode the saving is in what visitors download, not on disk."
+msgstr ""
+
+#: includes/class-cleanor-admin.php:611
+msgid "Two delivery modes"
+msgstr ""
+
+#: includes/class-cleanor-optimizer.php:133
+msgid "Unsupported file type."
+msgstr ""
+
+#: includes/class-cleanor-local.php:98
+msgid "Unsupported output format."
+msgstr ""
+
+#: includes/class-cleanor-admin.php:567
+msgid "Upload images"
+msgstr ""
+
+#: includes/class-cleanor-settings.php:365
+msgid "Used by the Cleanor API engine and as the Auto fallback. The default endpoint is free and needs no account or key."
+msgstr ""
+
+#: includes/class-cleanor-admin.php:380
+msgid "View optimized images"
+msgstr ""
+
+#: includes/class-cleanor-bulk.php:263 includes/class-cleanor-settings.php:247
+msgid "WebP (best support)"
+msgstr ""
+
+#: includes/class-cleanor-cleanup.php:633
+msgid "WebP and AVIF copies whose source image no longer exists (an image you deleted, or a leftover after switching format). These are always safe to remove."
+msgstr ""
+
+#: includes/class-cleanor-admin.php:310
+msgid "Welcome to Cleanor"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:603
+msgid "What Cleanor does, and why"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:619
+msgid "What about images already in my blog?"
+msgstr ""
+
+#: includes/class-cleanor-cleanup.php:661
+msgid "What about the originals in keep mode?"
+msgstr ""
+
+#: includes/class-cleanor-settings.php:351
+msgid "What happens automatically, and what Cleanor keeps."
+msgstr ""
+
+#: includes/class-cleanor-settings.php:271
+msgid "Where images are re-encoded. Local means on your own server, with no external requests."
+msgstr ""
+
+#: includes/class-cleanor-admin.php:615
+msgid "Where the optimized files live"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:608
+msgid "With the default Auto engine, images are re-encoded right on your own server using its built-in image tools (Imagick or GD) and never leave your site. The free Cleanor API is only a fallback, mainly for AVIF on hosts that cannot produce it locally. Choose \"On this server only\" in Settings to guarantee no external requests at all. Settings shows exactly what your server can do (WebP is supported almost everywhere)."
+msgstr ""
+
+#: includes/class-cleanor-admin.php:636
+msgid "You are in keep-originals mode. Change it in Settings"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:636
+msgid "You are in replace-files mode. Change it in Settings"
+msgstr ""
+
+#: includes/class-cleanor-bulk.php:287
+msgid "You can also restore a single image from the Images tab."
+msgstr ""
+
+#: includes/class-cleanor-admin.php:566
+msgid "Your Media Library is empty. Upload an image and Cleanor optimizes it automatically; then come back here."
+msgstr ""
+
+#: includes/class-cleanor-admin.php:276
+msgid "across %d images optimized so far."
+msgstr ""
+
+#: includes/class-cleanor-admin.php:268
+msgid "across %d images. Originals stay on disk unchanged; visitors are served the smaller WebP/AVIF copy."
+msgstr ""
+
+#: includes/class-cleanor-admin.php:189
+msgid "converted"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:472
+msgid "converted file"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:469
+msgid "copy"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:159
+msgid "freed"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:187
+msgid "images processed"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:163
+msgid "images regenerated"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:165
+msgid "look unused"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:166
+msgid "moved to Trash"
+msgstr ""
+
+#: includes/class-cleanor-settings.php:267
+msgid "no"
+msgstr ""
+
+#: includes/class-cleanor-settings.php:265
+msgid "none"
+msgstr ""
+
+#: includes/class-cleanor-bulk.php:204
+msgid "of %s images processed"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:188
+msgid "optimized"
+msgstr ""
+
+#: includes/class-cleanor-settings.php:257
+msgid "px max width"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:167
+msgid "reclaimable once you empty the Trash"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:158
+msgid "removed"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:191
+msgid "restored"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:262
+msgid "saved"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:262
+msgid "saved in transfer"
+msgstr ""
+
+#: includes/class-cleanor-admin.php:305
+msgid "smaller"
+msgstr ""
+
+#: includes/class-cleanor-settings.php:266
+msgid "yes"
+msgstr ""
+
